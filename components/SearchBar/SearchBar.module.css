@@ -1,0 +1,45 @@
+.container {
+	border-radius: var(--rounded-full);
+	background-color: var(--slate-100);
+}
+
+.container:hover {
+	background-color: var(--slate-200);
+}
+
+.form {
+	display: flex;
+	align-items: center;
+}
+
+.inputContainer {
+	display: flex;
+	gap: 0.3rem;
+	align-items: center;
+	width: 100%;
+	padding: 0.25rem 0.75rem;
+}
+
+.input {
+	background-color: inherit;
+	border: none;
+	width: 100%;
+}
+
+.input:focus {
+	outline: none;
+}
+
+.clearIcon {
+	padding: 0.1em;
+}
+
+.clearIcon:hover {
+	background-color: var(--slate-300);
+}
+
+@media screen and (min-width: 1000px) {
+	.container {
+		width: 65%;
+	}
+}
