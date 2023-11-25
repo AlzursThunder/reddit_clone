@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
+import SearchInputSlice from "./features/search-input/searchInputSlice";
 import UserSlice from "./features/user/userSlice";
 
 const store = configureStore({
 	reducer: {
 		user: UserSlice,
+		searchInput: SearchInputSlice,
 	},
 });
 
