@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import SearchBar from "../SearchBar";
 import styles from "./Menu.module.css";
+import SignInBtn from "./SignInBtn";
 
 const Menu: React.FC = () => {
 	return (
@@ -29,6 +30,7 @@ const Menu: React.FC = () => {
 					</Link>
 				</div>
 				<SearchBar />
+				<SignInBtn />
 			</nav>
 		</div>
 	);
