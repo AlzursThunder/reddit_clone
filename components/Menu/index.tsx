@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import styles from "./Menu.module.css";
 import SearchBar from "../SearchBar";
+import styles from "./Menu.module.css";
 
 const Menu: React.FC = () => {
 	return (
@@ -11,7 +11,7 @@ const Menu: React.FC = () => {
 				<div className={styles.logoContainer}>
 					<Link href={"/"}>
 						<Image
-							src={"/logo/mobile/logo-mobile.png"}
+							src={"/logo/mobile/vercel.svg"}
 							alt="logo"
 							height={38}
 							width={38}
