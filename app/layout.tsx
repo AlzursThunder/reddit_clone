@@ -1,3 +1,4 @@
+import Menu from "@/components/Menu";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
@@ -31,6 +32,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={roboto.className}>
 				<MainProviders>
+					<Menu />
 					<main className={styles.main}>{children}</main>
 				</MainProviders>
 			</body>
