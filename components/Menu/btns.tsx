@@ -20,3 +20,17 @@ export const LogInBtn: React.FC<{ handleClick: () => void }> = ({
 		</CustomBtn>
 	);
 };
+
+export const SignOutBtn: React.FC<{ handleClick: () => void }> = ({
+	handleClick,
+}) => {
+	return (
+		<CustomBtn
+			variant="outlined"
+			color="warning"
+			onClick={handleClick}
+		>
+			Sign Out
+		</CustomBtn>
+	);
+};
