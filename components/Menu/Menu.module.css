@@ -1,0 +1,54 @@
+.container {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 52px;
+	z-index: 5;
+	background-color: white;
+}
+
+.nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	height: 100%;
+	padding: 0 0.5rem;
+	border-bottom: 1px solid var(--slate-400);
+}
+
+.logoContainer {
+	display: flex;
+}
+
+.mobileLogo,
+.desktopLogo {
+	object-fit: contain;
+}
+
+.mobileLogo {
+	border-radius: var(--rounded-full);
+}
+
+.desktopLogo {
+	display: none;
+}
+
+@media (min-width: 1000px) {
+	.nav {
+		padding: 0 6rem;
+	}
+
+	.logoContainer {
+		width: 20%;
+	}
+
+	.mobileLogo {
+		display: none;
+	}
+
+	.desktopLogo {
+		display: block;
+	}
+}
