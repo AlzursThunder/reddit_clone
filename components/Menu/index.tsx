@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import styles from "./Menu.module.css";
+import SearchBar from "../SearchBar";
 
 const Menu: React.FC = () => {
 	return (
@@ -27,6 +28,7 @@ const Menu: React.FC = () => {
 						/>
 					</Link>
 				</div>
+				<SearchBar />
 			</nav>
 		</div>
 	);
