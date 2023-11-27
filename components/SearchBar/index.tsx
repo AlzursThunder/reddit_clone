@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
+import Input from "@mui/material/Input";
 import Tooltip from "@mui/material/Tooltip";
 import { usePathname } from "next/navigation";
 import React, { useRef } from "react";
@@ -45,7 +46,8 @@ const SearchBar: React.FC = () => {
 					}}
 				>
 					<SearchIcon />
-					<input
+					<Input
+						disableUnderline
 						type="text"
 						className={styles.input}
 						value={searchPhrase}
