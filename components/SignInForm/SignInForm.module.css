@@ -1,0 +1,31 @@
+.formContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	height: 100vh;
+	width: 100%;
+}
+
+.formBox {
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	flex-basis: auto;
+	flex-shrink: 1;
+	overflow: hidden;
+	background-color: white;
+}
+
+@media screen and (min-width: 770px) {
+	.formBox {
+		width: 600px;
+		max-width: 80vw;
+		height: 650px;
+		min-height: 400px;
+		max-height: 90vh;
+		border-radius: 16px;
+	}
+}
