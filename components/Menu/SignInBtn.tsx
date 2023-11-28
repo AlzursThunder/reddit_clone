@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { nanoid } from "@reduxjs/toolkit";
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
+import SignInForm from "../SignInForm";
 import { LoadingBtn, LogInBtn, SignOutBtn } from "./btns";
 
 const SignInBtn: React.FC = () => {
@@ -38,7 +39,12 @@ const SignInBtn: React.FC = () => {
 			) : (
 				<LogInBtn handleClick={() => setOpenPanel(true)} />
 			)}
-			{openPanel && <div>SignInForm</div>}
+			{openPanel && (
+				<SignInForm
+					openPanel={openPanel}
+					togglePanel={setOpenPanel}
+				/>
+			)}
 		</div>
 	);
 };
