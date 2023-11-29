@@ -2,6 +2,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import styles from "./SignInForm.module.css";
+import { TextFieldThemeProvider } from "./ThemesProviders";
 
 interface props {
 	header: string;
@@ -15,7 +16,7 @@ const SignInTemplate: React.FC<props> = ({
 	announcement,
 }) => {
 	return (
-		<>
+		<TextFieldThemeProvider>
 			<div className={styles.template}>
 				<Typography
 					variant="h5"
@@ -26,7 +27,7 @@ const SignInTemplate: React.FC<props> = ({
 				<Typography variant="body2">{announcement}</Typography>
 				<Stack spacing={3}>{children}</Stack>
 			</div>
-		</>
+		</TextFieldThemeProvider>
 	);
 };
 
