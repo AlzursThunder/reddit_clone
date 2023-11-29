@@ -12,7 +12,18 @@ const initialState: SignInFormState = {
 const signInFormSlice = createSlice({
 	name: "signin-form",
 	initialState,
-	reducers: {},
+	reducers: {
+		updateLogInData: (
+			state,
+			{ payload: { id, value } }: { payload: FormPayload }
+		) => ({
+			...state,
+			logInForm: {
+				...state.logInForm,
+				[id]: value,
+			},
+		}),
+	},
 });
 
 export default signInFormSlice.reducer;
