@@ -26,4 +26,6 @@ const signInFormSlice = createSlice({
 	},
 });
 
+export const { updateLogInData } = signInFormSlice.actions;
+
 export default signInFormSlice.reducer;
