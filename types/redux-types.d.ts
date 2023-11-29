@@ -13,3 +13,8 @@ interface SignInFormState {
 	logInForm: LogInFormState;
 	registerForm: RegisterFormState;
 }
+
+interface FormPayload {
+	id: string;
+	value: string;
+}
