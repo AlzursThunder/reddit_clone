@@ -10,3 +10,10 @@ export const PLACEHOLDER_ACCOUNTS = [
 	{ userName: "user9", password: "password9" },
 	{ userName: "user10", password: "password10" },
 ];
+
+export const { logIn: LOGINFORM_MSGs } = {
+	logIn: {
+		head: "Log In",
+		msg: "By continuing you agree to ToS and Privacy Policy.",
+	},
+};
