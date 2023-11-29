@@ -7,3 +7,9 @@ interface UserState {
 interface SearchInputState {
 	searchPhrase: string;
 }
+
+// "@/redux/features/signin-form"
+interface SignInFormState {
+	logInForm: LogInFormState;
+	registerForm: RegisterFormState;
+}
