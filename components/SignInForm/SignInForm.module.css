@@ -24,6 +24,14 @@
 	max-height: 80vh;
 	overflow: auto;
 	border-bottom: 1px solid var(--gray-300);
+}
+
+.btnBox {
+	margin: 1rem 0;
+}
+
+.template,
+.btnBox {
 	padding: 0.25rem 0.75rem;
 }
 
@@ -37,7 +45,8 @@
 		border-radius: 16px;
 	}
 
-	.template {
+	.template,
+	.btnBox {
 		padding: 0.25rem 3.5rem;
 	}
 }
