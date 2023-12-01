@@ -5,8 +5,9 @@ import Box from "@mui/material/Box";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import React from "react";
+import React, { useState } from "react";
 import { CustomContainer } from "./CustomComponents";
+import LogInForm from "./LogInForm";
 import styles from "./SignInForm.module.css";
 
 interface props {
@@ -15,6 +16,8 @@ interface props {
 }
 
 const SignInForm: React.FC<props> = ({ togglePanel, openPanel }) => {
+	const [showLoginForm, setShowLoginForm] = useState(true);
+
 	return (
 		<Backdrop open={openPanel}>
 			<CustomContainer
@@ -41,6 +44,11 @@ const SignInForm: React.FC<props> = ({ togglePanel, openPanel }) => {
 								</IconButton>
 							</Tooltip>
 						</Box>
+						{showLoginForm ? (
+							<LogInForm setShowLoginForm={setShowLoginForm} />
+						) : (
+							"Register form"
+						)}
 					</form>
 				</ClickAwayListener>
 			</CustomContainer>
