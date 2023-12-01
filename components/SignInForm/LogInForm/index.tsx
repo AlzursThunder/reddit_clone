@@ -9,7 +9,11 @@ import { CustomLink, CustomTypography, ReqLabel } from "../CustomComponents";
 import styles from "../SignInForm.module.css";
 import SignInTemplate from "../Template";
 
-const LogInForm: React.FC = () => {
+interface props {
+	setShowLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const LogInForm: React.FC<props> = ({ setShowLoginForm }) => {
 	const { password, username } = useAppSelector(
 		(state) => state.signInForm.logInForm
 	);
@@ -34,7 +38,7 @@ const LogInForm: React.FC = () => {
 				/>
 				<Typography>
 					Don't have an account?{" "}
-					<CustomTypography onClick={() => {}}>Sign Up</CustomTypography>
+					<CustomTypography onClick={() => setShowLoginForm(false)}>Sign Up</CustomTypography>
 				</Typography>
 				<CustomLink
 					href="/placeholder-accounts"
