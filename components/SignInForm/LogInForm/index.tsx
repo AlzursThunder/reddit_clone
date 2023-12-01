@@ -1,5 +1,6 @@
 import { LOGINFORM_MSGs } from "@/constants";
-import { useAppSelector } from "@/redux/hooks";
+import { updateLogInData } from "@/redux/features/signin-form/signinFormSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -14,9 +15,16 @@ interface props {
 }
 
 const LogInForm: React.FC<props> = ({ setShowLoginForm }) => {
+	const dispatch = useAppDispatch();
 	const { password, username } = useAppSelector(
 		(state) => state.signInForm.logInForm
 	);
+
+	const handleChange: UpdateTextField = (ev, propertyId) => {
+		const { id, value } = ev.target;
+		dispatch(updateLogInData({ id: propertyId ? propertyId : id, value }));
+		return;
+	};
 
 	return (
 		<>
@@ -27,18 +35,20 @@ const LogInForm: React.FC<props> = ({ setShowLoginForm }) => {
 				<TextField
 					value={username}
 					type="text"
-					onChange={() => {}}
+					onChange={(ev) => handleChange(ev, "username")}
 					label={<ReqLabel text="Username" />}
 				/>
 				<TextField
 					value={password}
 					type="password"
-					onChange={() => {}}
+					onChange={(ev) => handleChange(ev, "password")}
 					label={<ReqLabel text="Password" />}
 				/>
 				<Typography>
 					Don't have an account?{" "}
-					<CustomTypography onClick={() => setShowLoginForm(false)}>Sign Up</CustomTypography>
+					<CustomTypography onClick={() => setShowLoginForm(false)}>
+						Sign Up
+					</CustomTypography>
 				</Typography>
 				<CustomLink
 					href="/placeholder-accounts"
