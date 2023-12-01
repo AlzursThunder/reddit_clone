@@ -8,3 +8,8 @@ interface RegisterFormState {
 	username: string;
 	password: string;
 }
+
+type UpdateTextField = (
+	ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+	propertyId?: string
+) => void;
