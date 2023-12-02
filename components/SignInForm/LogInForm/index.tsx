@@ -1,11 +1,12 @@
 import { LOGINFORM_MSGs } from "@/constants";
 import { updateLogInData } from "@/redux/features/signin-form/signinFormSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { validateLogInData } from "@/utils";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CustomLink, CustomTypography, ReqLabel } from "../CustomComponents";
 import styles from "../SignInForm.module.css";
 import SignInTemplate from "../Template";
@@ -20,11 +21,17 @@ const LogInForm: React.FC<props> = ({ setShowLoginForm }) => {
 		(state) => state.signInForm.logInForm
 	);
 
+	const [isDataValid, setIsDataValid] = useState(false);
+
 	const handleChange: UpdateTextField = (ev, propertyId) => {
 		const { id, value } = ev.target;
 		dispatch(updateLogInData({ id: propertyId ? propertyId : id, value }));
 		return;
 	};
+
+	useEffect(() => {
+		setIsDataValid(() => validateLogInData({ password, username }));
+	}, [password, username]);
 
 	return (
 		<>
@@ -61,6 +68,7 @@ const LogInForm: React.FC<props> = ({ setShowLoginForm }) => {
 				<Button
 					type={"submit"}
 					variant="contained"
+					disabled={!isDataValid}
 					color="warning"
 					size="large"
 					sx={{
