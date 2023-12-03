@@ -66,7 +66,7 @@ const LogInForm: React.FC<props> = ({ setShowLoginForm }) => {
 			</SignInTemplate>
 			<Box className={styles.btnBox}>
 				<Button
-					type={"submit"}
+					type={"button"}
 					variant="contained"
 					disabled={!isDataValid}
 					color="warning"
