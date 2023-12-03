@@ -23,9 +23,19 @@ const signInFormSlice = createSlice({
 				[id]: value,
 			},
 		}),
+		updateRegisterData: (
+			state,
+			{ payload: { id, value } }: { payload: FormPayload }
+		) => ({
+			...state,
+			registerForm: {
+				...state.registerForm,
+				[id]: value,
+			},
+		}),
 	},
 });
 
-export const { updateLogInData } = signInFormSlice.actions;
+export const { updateLogInData, updateRegisterData } = signInFormSlice.actions;
 
 export default signInFormSlice.reducer;
