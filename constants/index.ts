@@ -11,9 +11,21 @@ export const PLACEHOLDER_ACCOUNTS = [
 	{ userName: "user10", password: "password10" },
 ];
 
-export const { logIn: LOGINFORM_MSGs } = {
+export const { logIn: LOGINFORM_MSGs, singUp: REGISTERFORM_MSGs } = {
 	logIn: {
 		head: "Log In",
 		msg: "By continuing you agree to ToS and Privacy Policy.",
 	},
+	singUp: [
+		// first step
+		{
+			head: "Sign Up",
+			msg: "By continuing you agree to ToS and Privacy Policy.",
+		},
+		// second step
+		{
+			head: "Create your username and password",
+			msg: "You can't change your username later.",
+		},
+	],
 };
