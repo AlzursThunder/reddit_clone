@@ -3,11 +3,15 @@ import { updateLogInData } from "@/redux/features/signin-form/signinFormSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { validateLogInData } from "@/utils";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
-import { CustomLink, CustomTypography, ReqLabel } from "../CustomComponents";
+import {
+	CustomFormButton,
+	CustomLink,
+	CustomTypography,
+	ReqLabel,
+} from "../CustomComponents";
 import styles from "../SignInForm.module.css";
 import SignInTemplate from "../Template";
 
@@ -65,19 +69,15 @@ const LogInForm: React.FC<props> = ({ setShowLoginForm }) => {
 				</CustomLink>
 			</SignInTemplate>
 			<Box className={styles.btnBox}>
-				<Button
+				<CustomFormButton
 					type={"button"}
 					variant="contained"
 					disabled={!isDataValid}
 					color="warning"
 					size="large"
-					sx={{
-						borderRadius: "var(--rounded-full)",
-						width: "100%",
-					}}
 				>
 					Log In
-				</Button>
+				</CustomFormButton>
 			</Box>
 		</>
 	);
