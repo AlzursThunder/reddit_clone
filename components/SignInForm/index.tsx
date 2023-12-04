@@ -8,6 +8,7 @@ import Tooltip from "@mui/material/Tooltip";
 import React, { useState } from "react";
 import { CustomContainer } from "./CustomComponents";
 import LogInForm from "./LogInForm";
+import RegisterForm from "./RegisterForm";
 import styles from "./SignInForm.module.css";
 
 interface props {
@@ -47,7 +48,7 @@ const SignInForm: React.FC<props> = ({ togglePanel, openPanel }) => {
 						{showLoginForm ? (
 							<LogInForm setShowLoginForm={setShowLoginForm} />
 						) : (
-							"Register form"
+							<RegisterForm setShowLoginForm={setShowLoginForm} />
 						)}
 					</form>
 				</ClickAwayListener>
