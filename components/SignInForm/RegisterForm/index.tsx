@@ -6,11 +6,15 @@ import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
-import { CustomFormButton } from "../CustomComponents";
+import { CustomFormButton, CustomTypography } from "../CustomComponents";
 import styles from "../SignInForm.module.css";
 import SignInTemplate from "../Template";
 
-const RegisterForm: React.FC = () => {
+interface props {
+	setShowLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 	const [currStep, setCurrStep] = useState<number>(0);
 
 	return (
@@ -20,7 +24,15 @@ const RegisterForm: React.FC = () => {
 				announcement={REGISTERFORM_MSGs[currStep].msg}
 			>
 				{currStep === 0 ? (
-					<>"First Step"</>
+					<>
+						"First Step"
+						<Typography>
+							Do you have an account?{" "}
+							<CustomTypography onClick={() => setShowLoginForm(true)}>
+								Log In
+							</CustomTypography>
+						</Typography>
+					</>
 				) : currStep === 1 ? (
 					<>"Second Step"</>
 				) : (
