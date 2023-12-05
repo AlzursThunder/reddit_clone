@@ -1,5 +1,7 @@
 "use client";
 import { REGISTERFORM_MSGs } from "@/constants";
+import { updateRegisterData } from "@/redux/features/signin-form/signinFormSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
@@ -15,7 +17,15 @@ interface props {
 }
 
 const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
+	const dispatch = useAppDispatch();
+
 	const [currStep, setCurrStep] = useState<number>(0);
+
+	const handleChange: UpdateTextField = (ev, propertyId) => {
+		const { id, value } = ev.target;
+		dispatch(updateRegisterData({ id: propertyId ? propertyId : id, value }));
+		return;
+	};
 
 	return (
 		<>
