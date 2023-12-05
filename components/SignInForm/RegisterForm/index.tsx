@@ -12,6 +12,7 @@ import { CustomFormButton, CustomTypography } from "../CustomComponents";
 import styles from "../SignInForm.module.css";
 import SignInTemplate from "../Template";
 import FirstStep from "./Step1";
+import SecondStep from "./Step2";
 
 interface props {
 	setShowLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,7 +20,9 @@ interface props {
 
 const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 	const dispatch = useAppDispatch();
-	const { email } = useAppSelector((state) => state.signInForm.registerForm);
+	const { email, username, password } = useAppSelector(
+		(state) => state.signInForm.registerForm
+	);
 
 	const [currStep, setCurrStep] = useState<number>(0);
 
@@ -48,7 +51,11 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 						</Typography>
 					</FirstStep>
 				) : currStep === 1 ? (
-					<>"Second Step"</>
+					<SecondStep
+						handleChange={handleChange}
+						username={username}
+						password={password}
+					/>
 				) : (
 					<span>Sorry something went wrong. Please try again.</span>
 				)}
