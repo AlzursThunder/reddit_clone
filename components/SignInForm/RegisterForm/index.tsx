@@ -1,7 +1,7 @@
 "use client";
 import { REGISTERFORM_MSGs } from "@/constants";
 import { updateRegisterData } from "@/redux/features/signin-form/signinFormSlice";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import { CustomFormButton, CustomTypography } from "../CustomComponents";
 import styles from "../SignInForm.module.css";
 import SignInTemplate from "../Template";
+import FirstStep from "./Step1";
 
 interface props {
 	setShowLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,6 +19,7 @@ interface props {
 
 const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 	const dispatch = useAppDispatch();
+	const { email } = useAppSelector((state) => state.signInForm.registerForm);
 
 	const [currStep, setCurrStep] = useState<number>(0);
 
@@ -34,15 +36,17 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 				announcement={REGISTERFORM_MSGs[currStep].msg}
 			>
 				{currStep === 0 ? (
-					<>
-						"First Step"
+					<FirstStep
+						email={email}
+						handleChange={handleChange}
+					>
 						<Typography>
 							Do you have an account?{" "}
 							<CustomTypography onClick={() => setShowLoginForm(true)}>
 								Log In
 							</CustomTypography>
 						</Typography>
-					</>
+					</FirstStep>
 				) : currStep === 1 ? (
 					<>"Second Step"</>
 				) : (
