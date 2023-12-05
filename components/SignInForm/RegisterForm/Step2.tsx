@@ -1,5 +1,9 @@
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
-import React from "react";
+import React, { useState } from "react";
 import { ReqLabel } from "../CustomComponents";
 
 interface props {
@@ -9,6 +13,7 @@ interface props {
 }
 
 const SecondeStep: React.FC<props> = ({ handleChange, password, username }) => {
+	const [showPassword, setShowPassword] = useState(false);
 	return (
 		<>
 			<TextField
@@ -19,10 +24,23 @@ const SecondeStep: React.FC<props> = ({ handleChange, password, username }) => {
 				onChange={(ev) => handleChange(ev, "username")}
 			/>
 			<TextField
-				type={"password"}
+				type={showPassword ? "text" : "password"}
 				label={<ReqLabel text="Password" />}
 				onChange={(ev) => handleChange(ev, "password")}
 				value={password}
+				InputProps={{
+					endAdornment: (
+						<InputAdornment position="end">
+							<IconButton
+								onClick={() => setShowPassword((prev) => !prev)}
+								onMouseDown={(ev) => ev.preventDefault()}
+								edge="end"
+							>
+								{showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+							</IconButton>
+						</InputAdornment>
+					),
+				}}
 			/>
 		</>
 	);
