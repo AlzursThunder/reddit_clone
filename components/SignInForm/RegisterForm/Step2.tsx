@@ -12,7 +12,7 @@ interface props {
 	handleChange: UpdateTextField;
 }
 
-const SecondeStep: React.FC<props> = ({ handleChange, password, username }) => {
+const SecondStep: React.FC<props> = ({ handleChange, password, username }) => {
 	const [showPassword, setShowPassword] = useState(false);
 	return (
 		<>
@@ -46,4 +46,4 @@ const SecondeStep: React.FC<props> = ({ handleChange, password, username }) => {
 	);
 };
 
-export default SecondeStep;
+export default SecondStep;
