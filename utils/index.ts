@@ -1,3 +1,6 @@
-import { validateLogInData } from "./validations/validateSignInForm";
+import {
+	validateLogInData,
+	validateRegisterData,
+} from "./validations/validateSignInForm";
 
-export { validateLogInData };
+export { validateLogInData, validateRegisterData };
