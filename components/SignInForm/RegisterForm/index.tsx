@@ -2,12 +2,13 @@
 import { REGISTERFORM_MSGs } from "@/constants";
 import { updateRegisterData } from "@/redux/features/signin-form/signinFormSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { validateRegisterData } from "@/utils";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CustomFormButton, CustomTypography } from "../CustomComponents";
 import styles from "../SignInForm.module.css";
 import SignInTemplate from "../Template";
@@ -26,11 +27,27 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 
 	const [currStep, setCurrStep] = useState<number>(0);
 
+	const [isDataValid, setIsDataValid] = useState<boolean[]>([false, false]);
+
 	const handleChange: UpdateTextField = (ev, propertyId) => {
 		const { id, value } = ev.target;
 		dispatch(updateRegisterData({ id: propertyId ? propertyId : id, value }));
 		return;
 	};
+
+	useEffect(() => {
+		setIsDataValid((oldState) => {
+			const newState = [...oldState];
+
+			const isValidStep = validateRegisterData(
+				{ email, password, username },
+				currStep
+			);
+			newState[currStep] = isValidStep;
+
+			return newState;
+		});
+	}, [email, username, password]);
 
 	return (
 		<>
@@ -78,6 +95,7 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 					</Tooltip>
 				)}
 				<CustomFormButton
+					disabled={!isDataValid[currStep]}
 					type={"button"}
 					variant="contained"
 					color="warning"
