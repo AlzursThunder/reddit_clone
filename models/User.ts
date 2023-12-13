@@ -1,3 +1,4 @@
+import { validateUserSchema } from "@/utils";
 import sanitize from "mongo-sanitize";
 import { InferSchemaType, Schema, model, models } from "mongoose";
 
@@ -6,6 +7,13 @@ const UserSchema = new Schema<UserSchemaInterface>({
 		type: String,
 		unique: true,
 		required: true,
+		validate: {
+			validator: function (value: string) {
+				const isValid = validateUserSchema("email", value);
+				return isValid;
+			},
+			message: `Invalid email format.`,
+		},
 	},
 	emailPrefix: {
 		type: String,
