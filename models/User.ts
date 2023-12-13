@@ -24,6 +24,13 @@ const UserSchema = new Schema<UserSchemaInterface>({
 		type: String,
 		unique: true,
 		required: true,
+		validate: {
+			validator: function (value: string) {
+				const isValid = validateUserSchema("username", value);
+				return isValid;
+			},
+			message: `Username is invalid or taken.`,
+		},
 	},
 	password: {
 		type: String,
