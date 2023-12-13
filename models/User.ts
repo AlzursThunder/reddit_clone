@@ -1,3 +1,4 @@
+import sanitize from "mongo-sanitize";
 import { InferSchemaType, Schema, model, models } from "mongoose";
 
 const UserSchema = new Schema<UserSchemaInterface>({
@@ -20,6 +21,15 @@ const UserSchema = new Schema<UserSchemaInterface>({
 		type: String,
 		required: true,
 	},
+});
+
+UserSchema.pre("save", function (next) {
+	// sanitize data using mongo-sanitize
+	this.username = sanitize(this.username);
+	this.email = sanitize(this.email);
+	this.emailPrefix = sanitize(this.emailPrefix);
+
+	next();
 });
 
 export type UserType = InferSchemaType<typeof UserSchema> & { _id: string };
