@@ -1,7 +1,13 @@
 import connectToDB from "@/utils/connectToDB";
+import validateUserSchema from "./validations/userSchemaValidation";
 import {
 	validateLogInData,
 	validateRegisterData,
 } from "./validations/validateSignInForm";
 
-export { validateLogInData, validateRegisterData, connectToDB };
+export {
+	connectToDB,
+	validateLogInData,
+	validateRegisterData,
+	validateUserSchema,
+};
