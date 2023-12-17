@@ -8,11 +8,14 @@ const UserSchema = new Schema<UserSchemaInterface>({
 		unique: true,
 		required: true,
 		validate: {
-			validator: function (value: string) {
+			validator: async function (value: string) {
 				const isValid = validateUserSchema("email", value);
+				// check if email exists
+				if (isValid && (await User.exists({ email: value }))) return false;
+
 				return isValid;
 			},
-			message: `Invalid email format.`,
+			message: `Invalid email format or email already in use.`,
 		},
 	},
 	emailPrefix: {
