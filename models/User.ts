@@ -28,8 +28,11 @@ const UserSchema = new Schema<UserSchemaInterface>({
 		unique: true,
 		required: true,
 		validate: {
-			validator: function (value: string) {
+			validator: async function (value: string) {
 				const isValid = validateUserSchema("username", value);
+				// check if username exists
+				if (isValid && (await User.exists({ username: value }))) return false;
+
 				return isValid;
 			},
 			message: `Username is invalid or taken.`,
