@@ -1,6 +1,7 @@
 // "@/redux/features/user";
 interface UserState {
-	userId: string;
+	sessionToken: string;
+	isLoggedIn: boolean;
 }
 
 // "@/redux/features/search-input"
