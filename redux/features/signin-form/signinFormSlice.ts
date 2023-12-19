@@ -33,9 +33,13 @@ const signInFormSlice = createSlice({
 				[id]: value,
 			},
 		}),
+		clearAllData: () => ({
+			...initialState,
+		}),
 	},
 });
 
-export const { updateLogInData, updateRegisterData } = signInFormSlice.actions;
+export const { updateLogInData, updateRegisterData, clearAllData } =
+	signInFormSlice.actions;
 
 export default signInFormSlice.reducer;
