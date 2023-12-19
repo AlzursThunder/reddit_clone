@@ -21,6 +21,6 @@ const userSlice = createSlice({
 	},
 });
 
-export const { setSessionToken } = userSlice.actions;
+export const { setUserId, setSessionToken } = userSlice.actions;
 
 export default userSlice.reducer;
