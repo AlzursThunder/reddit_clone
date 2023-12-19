@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: UserState = {
 	userId: "",
+	isLoggedIn: false,
+	sessionToken: "",
 };
 
 const userSlice = createSlice({
@@ -12,9 +14,13 @@ const userSlice = createSlice({
 			...state,
 			userId: payload,
 		}),
+		setSessionToken: (state, { payload }: { payload: string }) => ({
+			...state,
+			sessionToken: payload,
+		}),
 	},
 });
 
-export const { setUserId } = userSlice.actions;
+export const { setUserId, setSessionToken } = userSlice.actions;
 
 export default userSlice.reducer;
