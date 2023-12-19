@@ -9,13 +9,13 @@ const userSlice = createSlice({
 	name: "user",
 	initialState,
 	reducers: {
-		setUserId: (state, { payload }: { payload: string }) => ({
+		setSessionToken: (state, { payload }: { payload: string }) => ({
 			...state,
-			userId: payload,
+			sessionToken: payload,
 		}),
 	},
 });
 
-export const { setUserId } = userSlice.actions;
+export const { setSessionToken } = userSlice.actions;
 
 export default userSlice.reducer;
