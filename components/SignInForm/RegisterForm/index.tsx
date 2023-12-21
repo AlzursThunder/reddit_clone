@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { CustomFormButton, CustomTypography } from "../CustomComponents";
 import styles from "../SignInForm.module.css";
@@ -19,6 +20,17 @@ interface props {
 	setShowLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+type ErrorMessagesState = {
+	[key: string]: ValidationError | null | string;
+	basic: string | null;
+};
+const errorMessagesInitialState: ErrorMessagesState = {
+	email: null,
+	username: null,
+	password: null,
+	basic: null,
+};
+
 const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 	const dispatch = useAppDispatch();
 	const { email, username, password } = useAppSelector(
@@ -28,6 +40,10 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 	const [currStep, setCurrStep] = useState<number>(0);
 
 	const [isDataValid, setIsDataValid] = useState<boolean[]>([false, false]);
+
+	const [errorMessages, setErrorMessages] = useState<ErrorMessagesState>(
+		() => errorMessagesInitialState
+	);
 
 	const handleChange: UpdateTextField = (ev, propertyId) => {
 		const { id, value } = ev.target;
@@ -100,14 +116,42 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 					variant="contained"
 					color="warning"
 					size="large"
-					onClick={async (ev) => {
+					onClick={async () => {
 						try {
 							if (currStep !== 1) {
 								setCurrStep((prev) => ++prev);
 								return;
 							}
-						} catch (error) {
+
+							const res = await axios.post("/api/register", {
+								email,
+								username,
+								password,
+							});
+
+							// reset erorr messages to initial state
+							if (res.status === 200)
+								setErrorMessages(errorMessagesInitialState);
+							console.log(res);
+						} catch (error: any) {
 							console.error(error);
+
+							if (error.response.data.name === "ValidationError") {
+								const { errors } = error.response
+									.data as UserSchema_ValidationError;
+								setErrorMessages((prev) => ({
+									...prev,
+									...errors,
+								}));
+								return;
+							}
+
+							setErrorMessages((prevState) => ({
+								...prevState,
+								basic: "Sorry something went wrong. Please try again.",
+							}));
+
+							return;
 						}
 					}}
 				>
