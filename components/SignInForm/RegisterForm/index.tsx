@@ -20,6 +20,17 @@ interface props {
 	setShowLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+type ErrorMessagesState = {
+	[key: string]: ValidationError | null | string;
+	basic: string | null;
+};
+const errorMessagesInitialState: ErrorMessagesState = {
+	email: null,
+	username: null,
+	password: null,
+	basic: null,
+};
+
 const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 	const dispatch = useAppDispatch();
 	const { email, username, password } = useAppSelector(
@@ -29,6 +40,10 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 	const [currStep, setCurrStep] = useState<number>(0);
 
 	const [isDataValid, setIsDataValid] = useState<boolean[]>([false, false]);
+
+	const [errorMessages, setErrorMessages] = useState<ErrorMessagesState>(
+		() => errorMessagesInitialState
+	);
 
 	const handleChange: UpdateTextField = (ev, propertyId) => {
 		const { id, value } = ev.target;
@@ -113,9 +128,30 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 								username,
 								password,
 							});
+
+							// reset erorr messages to initial state
+							if (res.status === 200)
+								setErrorMessages(errorMessagesInitialState);
 							console.log(res);
-						} catch (error) {
+						} catch (error: any) {
 							console.error(error);
+
+							if (error.response.data.name === "ValidationError") {
+								const { errors } = error.response
+									.data as UserSchema_ValidationError;
+								setErrorMessages((prev) => ({
+									...prev,
+									...errors,
+								}));
+								return;
+							}
+
+							setErrorMessages((prevState) => ({
+								...prevState,
+								basic: "Sorry something went wrong. Please try again.",
+							}));
+
+							return;
 						}
 					}}
 				>
