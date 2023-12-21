@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { CustomFormButton, CustomTypography } from "../CustomComponents";
 import styles from "../SignInForm.module.css";
@@ -100,12 +101,19 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 					variant="contained"
 					color="warning"
 					size="large"
-					onClick={async (ev) => {
+					onClick={async () => {
 						try {
 							if (currStep !== 1) {
 								setCurrStep((prev) => ++prev);
 								return;
 							}
+
+							const res = await axios.post("/api/register", {
+								email,
+								username,
+								password,
+							});
+							console.log(res);
 						} catch (error) {
 							console.error(error);
 						}
