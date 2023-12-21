@@ -1,15 +1,25 @@
 "use client";
 import { REGISTERFORM_MSGs } from "@/constants";
-import { updateRegisterData } from "@/redux/features/signin-form/signinFormSlice";
+import {
+	clearAllData,
+	updateRegisterData,
+} from "@/redux/features/signin-form/signinFormSlice";
+import {
+	setIsLoggedIn,
+	setSessionToken,
+} from "@/redux/features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { validateRegisterData } from "@/utils";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Alert from "@mui/material/Alert";
 import IconButton from "@mui/material/IconButton";
+import Snackbar from "@mui/material/Snackbar";
 import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { batch } from "react-redux";
 import { CustomFormButton, CustomTypography } from "../CustomComponents";
 import styles from "../SignInForm.module.css";
 import SignInTemplate from "../Template";
@@ -45,6 +55,8 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 		() => errorMessagesInitialState
 	);
 
+	const [openSnackbar, setOpenSnackbar] = useState(false);
+
 	const handleChange: UpdateTextField = (ev, propertyId) => {
 		const { id, value } = ev.target;
 		dispatch(updateRegisterData({ id: propertyId ? propertyId : id, value }));
@@ -64,6 +76,17 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 			return newState;
 		});
 	}, [email, username, password]);
+
+	function closeSnackbar(
+		event?: React.SyntheticEvent | Event,
+		reason?: string
+	) {
+		if (reason === "clickaway") {
+			return;
+		}
+
+		setOpenSnackbar(false);
+	}
 
 	return (
 		<>
@@ -128,11 +151,24 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 								username,
 								password,
 							});
+							console.log(res);
 
 							// reset erorr messages to initial state
-							if (res.status === 200)
+							if (res.status === 200) {
 								setErrorMessages(errorMessagesInitialState);
-							console.log(res);
+								setOpenSnackbar(true);
+							}
+
+							batch(() => {
+								dispatch(setIsLoggedIn(true));
+								dispatch(setSessionToken(res.data.sessionToken));
+								dispatch(clearAllData());
+							});
+
+							setIsDataValid(() => [false, false]);
+							setCurrStep(0);
+
+							return;
 						} catch (error: any) {
 							console.error(error);
 
@@ -158,6 +194,19 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 					<Typography>{currStep === 1 ? "Sign Up" : "Next"}</Typography>
 				</CustomFormButton>
 			</Stack>
+			<Snackbar
+				open={openSnackbar}
+				autoHideDuration={10000}
+				onClose={closeSnackbar}
+			>
+				<Alert
+					onClose={closeSnackbar}
+					severity="success"
+					sx={{ width: "100%" }}
+				>
+					Account created successfully!
+				</Alert>
+			</Snackbar>
 		</>
 	);
 };
