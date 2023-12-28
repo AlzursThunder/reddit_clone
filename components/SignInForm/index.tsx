@@ -48,7 +48,7 @@ const SignInForm: React.FC<props> = ({ togglePanel, openPanel }) => {
 						{showLoginForm ? (
 							<LogInForm setShowLoginForm={setShowLoginForm} />
 						) : (
-							<RegisterForm setShowLoginForm={setShowLoginForm} />
+							<RegisterForm setShowLoginForm={setShowLoginForm} togglePanel={togglePanel} />
 						)}
 					</form>
 				</ClickAwayListener>
