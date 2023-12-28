@@ -36,3 +36,7 @@ export const ReqLabel: React.FC<{ text: string }> = ({ text }) => (
 		<span style={{ color: "var(--red-700)" }}>*</span>
 	</Typography>
 );
+
+export const ErrorAlert = styled(Typography)(({ theme }) => ({
+	color: "var(--red-600)"
+}))
