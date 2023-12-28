@@ -28,6 +28,7 @@ import SecondStep from "./Step2";
 
 interface props {
 	setShowLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
+	togglePanel: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 type ErrorMessagesState = {
@@ -41,7 +42,7 @@ const errorMessagesInitialState: ErrorMessagesState = {
 	basic: null,
 };
 
-const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
+const RegisterForm: React.FC<props> = ({ setShowLoginForm, togglePanel }) => {
 	const dispatch = useAppDispatch();
 	const { email, username, password } = useAppSelector(
 		(state) => state.signInForm.registerForm
@@ -157,6 +158,7 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm }) => {
 							if (res.status === 200) {
 								setErrorMessages(errorMessagesInitialState);
 								setOpenSnackbar(true);
+								togglePanel(false)
 							}
 
 							batch(() => {
