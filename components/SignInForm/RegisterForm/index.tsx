@@ -31,10 +31,12 @@ interface props {
 	togglePanel: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+type ErrMsg = ValidationError | null;
+
 type ErrorMessagesState = {
-	[key: string]: ValidationError | null | string;
-	basic: string | null;
+	[key: string]: ErrMsg | string;
 };
+
 const errorMessagesInitialState: ErrorMessagesState = {
 	email: null,
 	username: null,
@@ -78,6 +80,25 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm, togglePanel }) => {
 		});
 	}, [email, username, password]);
 
+	useEffect(() => {
+		// if email's error msg exists switch to first step
+		if (errorMessages.email) {
+			setCurrStep(0);
+			setIsDataValid((prevState) => {
+				const newState = [...prevState];
+				newState[0] = false;
+				return newState;
+			});
+			return;
+		}
+		setIsDataValid((prevState) => {
+			const newState = [...prevState];
+			newState[1] = false;
+			return newState;
+		});
+		return;
+	}, [errorMessages]);
+
 	function closeSnackbar(
 		event?: React.SyntheticEvent | Event,
 		reason?: string
@@ -99,6 +120,7 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm, togglePanel }) => {
 					<FirstStep
 						email={email}
 						handleChange={handleChange}
+						errorMessages={{ email: errorMessages.email as ErrMsg }}
 					>
 						<Typography>
 							Do you have an account?{" "}
@@ -154,11 +176,11 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm, togglePanel }) => {
 							});
 							console.log(res);
 
-							// reset erorr messages to initial state
 							if (res.status === 200) {
+								// reset erorr messages to initial state
 								setErrorMessages(errorMessagesInitialState);
 								setOpenSnackbar(true);
-								togglePanel(false)
+								togglePanel(false);
 							}
 
 							batch(() => {
@@ -173,7 +195,8 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm, togglePanel }) => {
 							return;
 						} catch (error: any) {
 							console.error(error);
-
+							// return errorMessages state to initial version to avoid showing outdated errors
+							setErrorMessages(errorMessagesInitialState);
 							if (error.response.data.name === "ValidationError") {
 								const { errors } = error.response
 									.data as UserSchema_ValidationError;
