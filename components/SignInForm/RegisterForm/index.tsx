@@ -134,6 +134,11 @@ const RegisterForm: React.FC<props> = ({ setShowLoginForm, togglePanel }) => {
 						handleChange={handleChange}
 						username={username}
 						password={password}
+						errorMessages={{
+							basic: errorMessages.basic as string | null,
+							password: errorMessages.password as ErrMsg,
+							username: errorMessages.username as ErrMsg,
+						}}
 					/>
 				) : (
 					<span>Sorry something went wrong. Please try again.</span>
