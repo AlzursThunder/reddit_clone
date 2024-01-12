@@ -1,13 +1,7 @@
 import Step1 from "@/components/SignInForm/RegisterForm/Step1";
 import store from "@/redux/store";
-import {
-	cleanup,
-	fireEvent,
-	render,
-	screen,
-	waitFor,
-} from "@testing-library/react";
-import { Provider } from "react-redux";
+import { renderWithProviders } from "@/utils/utils-for-tests";
+import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 
 const mockHandleChange = jest.fn();
 
@@ -61,16 +55,14 @@ describe("First Step", () => {
 
 	describe("User interaction", () => {
 		it("should call the handleChange function when the input changes", async () => {
-			const { getByTestId } = render(
-				<Provider store={store}>
-					<Step1
-						email={registerForm.email}
-						handleChange={mockHandleChange}
-						errorMessages={{ email: null }}
-					>
-						""
-					</Step1>
-				</Provider>
+			const { getByTestId } = renderWithProviders(
+				<Step1
+					email={registerForm.email}
+					handleChange={mockHandleChange}
+					errorMessages={{ email: null }}
+				>
+					""
+				</Step1>
 			);
 			const input = getByTestId("step1-input-email");
 
@@ -82,16 +74,14 @@ describe("First Step", () => {
 		});
 
 		it("should update the email state when the input changes", async () => {
-			const { getByTestId } = render(
-				<Provider store={store}>
-					<Step1
-						email={registerForm.email}
-						handleChange={mockHandleChange}
-						errorMessages={{ email: null }}
-					>
-						""
-					</Step1>
-				</Provider>
+			const { getByTestId } = renderWithProviders(
+				<Step1
+					email={registerForm.email}
+					handleChange={mockHandleChange}
+					errorMessages={{ email: null }}
+				>
+					""
+				</Step1>
 			);
 			const input = getByTestId("step1-input-email");
 
