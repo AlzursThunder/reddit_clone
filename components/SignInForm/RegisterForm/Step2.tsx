@@ -32,6 +32,9 @@ const SecondStep: React.FC<props> = ({
 				autoComplete="off"
 				value={username}
 				onChange={(ev) => handleChange(ev, "username")}
+				inputProps={{
+					"data-testid": "step2-input-username",
+				}}
 			/>
 			<TextField
 				type={showPassword ? "text" : "password"}
@@ -50,6 +53,9 @@ const SecondStep: React.FC<props> = ({
 							</IconButton>
 						</InputAdornment>
 					),
+				}}
+				inputProps={{
+					"data-testid": "step2-input-password",
 				}}
 			/>
 			{errorMessages.basic ? (
