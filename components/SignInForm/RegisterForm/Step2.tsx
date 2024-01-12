@@ -4,15 +4,25 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
-import { ReqLabel } from "../CustomComponents";
+import { ErrorAlert, ReqLabel } from "../CustomComponents";
 
 interface props {
 	username: string;
 	password: string;
 	handleChange: UpdateTextField;
+	errorMessages: {
+		password: ValidationError | null;
+		username: ValidationError | null;
+		basic: string | null;
+	};
 }
 
-const SecondStep: React.FC<props> = ({ handleChange, password, username }) => {
+const SecondStep: React.FC<props> = ({
+	handleChange,
+	password,
+	username,
+	errorMessages,
+}) => {
 	const [showPassword, setShowPassword] = useState(false);
 	return (
 		<>
@@ -42,6 +52,18 @@ const SecondStep: React.FC<props> = ({ handleChange, password, username }) => {
 					),
 				}}
 			/>
+			{errorMessages.basic ? (
+				<ErrorAlert>{errorMessages.basic}</ErrorAlert>
+			) : (
+				<>
+					{errorMessages.username && (
+						<ErrorAlert>{errorMessages.username.message}</ErrorAlert>
+					)}
+					{errorMessages.password && (
+						<ErrorAlert>{errorMessages.password.message}</ErrorAlert>
+					)}
+				</>
+			)}
 		</>
 	);
 };
