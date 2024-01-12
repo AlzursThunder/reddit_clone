@@ -59,14 +59,20 @@ const SecondStep: React.FC<props> = ({
 				}}
 			/>
 			{errorMessages.basic ? (
-				<ErrorAlert>{errorMessages.basic}</ErrorAlert>
+				<ErrorAlert data-testid="step2-error-basic">
+					{errorMessages.basic}
+				</ErrorAlert>
 			) : (
 				<>
 					{errorMessages.username && (
-						<ErrorAlert>{errorMessages.username.message}</ErrorAlert>
+						<ErrorAlert data-testid="step2-error-username">
+							{errorMessages.username.message}
+						</ErrorAlert>
 					)}
 					{errorMessages.password && (
-						<ErrorAlert>{errorMessages.password.message}</ErrorAlert>
+						<ErrorAlert data-testid="step2-error-password">
+							{errorMessages.password.message}
+						</ErrorAlert>
 					)}
 				</>
 			)}
